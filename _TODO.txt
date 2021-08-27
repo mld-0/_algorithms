@@ -1,2 +1,4 @@
 TODO: 2021-08-26T18:17:11AEST algorithms, knapsack, Fractional selection
 TODO: 2021-08-26T18:16:57AEST algorithms, knapsack, 1/0 selection (with replacement)
+TODO: 2021-08-27T17:36:03AEST _algorithms, traveling-salesperson, dynamic, determine 'result' (path of optimimum route found) from dynamic programming table(s)
+TODO: 2021-08-27T17:39:54AEST _algorithms, traveling-salesperson, genetic, greedy, integerLinearProgram, and simulatedAnnealing implementations
