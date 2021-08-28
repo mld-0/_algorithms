@@ -1,9 +1,14 @@
+#   VIM SETTINGS: {{{3
+#   vim: set tabstop=4 modeline modelines=10 foldmethod=marker:
+#   vim: set foldlevel=2 foldcolumn=1:
+#   }}}1
 import sys
 import math
 import itertools
 import time
 import logging
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+#   {{{2
 
 #   TODO: 2021-08-27T17:39:54AEST _algorithms, traveling-salesperson, genetic, greedy, integerLinearProgram, and simulatedAnnealing implementations
 def traveling_salesperson_genetic(graph_adjacencies):
@@ -89,15 +94,16 @@ def traveling_salesperson_dynamic(graph_adjacencies):
     """Traveling salesperson problem - dynamic programming search of routes beginning/ending at node 0"""
     assert( len(graph_adjacencies) == len(graph_adjacencies[0]) )
 
-    #   C[k][j]:    shortest path beginning at 0, visiting all points in S for k(S), and ending at j
+    #   C[k][j]:    shortest path beginning at 0, visiting all nodes in S for k(S), and ending at j
     C = [ [math.inf for y in range(len(graph_adjacencies))] for x in range(2**len(graph_adjacencies)) ]
     C[1][0] = 0
 
-    #previous = [ [None] for x in range(len(graph_adjacencies)) ]
-    #previous = dict()
-    #result = [0]
+    #   P[k][j]:    previous node from j <after visiting all nodes in S for k(S)?>
     P = [ [None for y in range(len(graph_adjacencies))] for x in range(2**len(graph_adjacencies)) ]
 
+    #   k describes nodes included in S, k(S) = sum([ 2**i for i in S ])
+
+    #   Fill arrays 'C', 'P'
     for size in range(1, len(graph_adjacencies)):
         for S in itertools.combinations(range(1, len(graph_adjacencies)), size):
             S = (0,) + S
@@ -112,28 +118,34 @@ def traveling_salesperson_dynamic(graph_adjacencies):
                     if trial_C < C[k][i]:
                         C[k][i] = trial_C
                         #result.append(j)
-                        P[k][i] = (j,i)
+                        P[k][i] = j
 
+    #   determine optimal route cost, and last point in route before returning to 0
     result_cost, result_index = min( [ ( C[-1][i] + graph_adjacencies[0][i], i ) for i in range(len(graph_adjacencies)) ] )
 
-    #previous[0] = result_index
-    #logging.debug("result_cost=(%s)" % str(result_cost))
-    #logging.debug("result_index=(%s)" % str(result_index))
-    #logging.debug("previous=(%s)" % str(previous))
-    #logging.debug("C=(%s)" % str(C))
-    #logging.debug("P=(%s)" % str(P))
-    #array_print(P)
-    #result = backtrack_predecessors(P)
-
-    #   TODO: 2021-08-27T17:36:03AEST _algorithms, traveling-salesperson, dynamic, determine 'result' (path of optimimum route found) from dynamic programming table(s)
+    #   trace optimal path as 'result'
     result = [0]
-
+    #   Ongoing: 2021-08-28T14:10:27AEST note that 'k' is 1 greater than initial 'bits' as used in ans
+    k = (2**len(graph_adjacencies) - 1)
+    #   iterate for number of nodes visited, minus start/end
+    for i in range(len(graph_adjacencies)-1):
+        result.append(result_index)
+        #   update k(S) to remove 'result_index' from S
+        new_k = k & ~(2**result_index)
+        result_index = P[k][result_index]
+        k = new_k
+    result.append(0)
     result = result[::-1]
+
+    #   Check route 'result' has cost 'result_cost'
+    assert( graph_route_cost(graph_adjacencies, result) == result_cost )
+
     return result, result_cost
 
 
 #   LINK: https://github.com/hiteshsapkota/Optimal-Path-Detection/blob/master/travelling_salesman.py
 def ans_traveling_salesperson_dynamic(dists):
+#   {{{
     """
     Implementation of Held-Karp, an algorithm that solves the Traveling
     Salesman Problem using dynamic programming with memorization.
@@ -167,6 +179,7 @@ def ans_traveling_salesperson_dynamic(dists):
                         continue
                     res.append((C[(prev, m)][0] + dists[m][k], m))
                 C[(bits, k)] = min(res)
+    #print(C)
     # We're interested in all bits but the least significant (the start state)
     bits = (2**n - 1) - 1
     # Calculate optimal cost
@@ -185,6 +198,7 @@ def ans_traveling_salesperson_dynamic(dists):
     path.append(0)
     path = list(reversed(path))
     return path, opt
+#   }}}
 
 
 coords = [(1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 3)]
@@ -211,21 +225,12 @@ print("result_cost=(%s)" % str(result_cost))
 print("time_elapsed=(%s)" % str(time_elapsed))
 print()
 
+
 time_start = time.time()
 result, result_cost  = traveling_salesperson_dynamic(distances)
 time_end = time.time()
 time_elapsed = time_end - time_start
 print("traveling_salesperson_dynamic:")
-print("result=(%s)" % str(result))
-print("result_cost=(%s)" % str(result_cost))
-print("time_elapsed=(%s)" % str(time_elapsed))
-print()
-
-time_start = time.time()
-result, result_cost  = ans_traveling_salesperson_dynamic(distances)
-time_end = time.time()
-time_elapsed = time_end - time_start
-print("ans_traveling_salesperson_dynamic:")
 print("result=(%s)" % str(result))
 print("result_cost=(%s)" % str(result_cost))
 print("time_elapsed=(%s)" % str(time_elapsed))
