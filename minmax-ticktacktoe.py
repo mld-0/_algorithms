@@ -101,7 +101,10 @@ class MinMax_TickTackToe(object):
         return 0
         #   }}}
 
-    def minmax(self, depth, is_player_move):
+    #   alpha gives the maximum score that can be guaranteed for the player
+    #   beta gives the minimum score that can be guaranteed for opponent
+    #   beta <= alpha implies opponent is winning this game state, therefore we abandon the search
+    def minmax(self, depth, is_player_move, alpha=-math.inf, beta=math.inf):
         score = self.evaluate(depth)
 
         #   If player or opponent has won:
@@ -119,20 +122,35 @@ class MinMax_TickTackToe(object):
                 for loop_col in range(self.width):
                     if self.board[loop_row][loop_col] == self.empty:
                         self.board[loop_row][loop_col] = self.opponent
-                        trial_best = self.minmax(depth+1, not is_player_move)
+                        trial_best = self.minmax(depth+1, not is_player_move, alpha, beta)
                         if trial_best < best:
                             best = trial_best
+                        #   updating alpha/beta before 'break' makes this 'fail-soft' alpha-beta pruning
+                        beta = min(beta, best)
                         self.board[loop_row][loop_col] = self.empty
+                    if beta <= alpha:
+                    #if best <= alpha:  (alternatively)
+                        break
+                #   break for inner and outer loops
+                if beta <= alpha:
+                    break
         else:
             best = -math.inf
             for loop_row in range(self.height):
                 for loop_col in range(self.width):
                     if self.board[loop_row][loop_col] == self.empty:
                         self.board[loop_row][loop_col] = self.player
-                        trial_best = self.minmax(depth+1, not is_player_move)
+                        trial_best = self.minmax(depth+1, not is_player_move, alpha, beta)
                         if trial_best > best:
                             best = trial_best
+                        alpha = max(alpha, best)
                         self.board[loop_row][loop_col] = self.empty
+                    if beta <= alpha:
+                    #   or:
+                    #if best >= beta:  (alternatively)
+                        break
+                if beta <= alpha:
+                    break
 
         return best
 
