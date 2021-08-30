@@ -39,6 +39,7 @@ class MinMax_TickTackToe(object):
     def is_game_won(self):
         score = self.evaluate(0)
         logging.debug("score=(%s)" % str(score))
+        #   Ongoing: 2021-08-30T14:50:44AEST Use 'score != 0' instead of == 100 or -100?
         if score == 100 or score == -100:
             return True
         return False
@@ -196,7 +197,7 @@ class MinMax_TickTackToe(object):
     def make_opponent_move(self):
         #   {{{
         best_index, best = self.opponent_best_move()
-        logging.debug("opponent move=(%s), score=(%s)" % (best_index, best))
+        logging.debug("ai opponent move=(%s), score=(%s)" % (best_index, best))
         self.board[best_index[0]][best_index[1]] = self.opponent
         self.board_print()
         #   }}}
@@ -272,6 +273,7 @@ def test_evaluate():
     result = game.evaluate(0)
     print("result=(%s)" % result)
     #assert( result == -100 )
+    assert( result == 0 )
 
     game.board = [ ['-','-','-'], ['-','-','-'], ['x','-','-'] ]
     game.board_print()
@@ -346,6 +348,7 @@ def test_is_move_remaining():
     assert( result == False )
     #   }}}
 
+#   TODO: 2021-08-30T15:54:43AEST test_minmax result is not being asserted against anything
 def test_minmax():
     #   {{{
     game = MinMax_TickTackToe()
