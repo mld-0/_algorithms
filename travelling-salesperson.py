@@ -10,6 +10,8 @@ import logging
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 #   {{{2
 
+#   TODO: 2021-08-30T21:15:17AEST _algorithms, traveling-salesperson, approximation algorithms
+
 #   TODO: 2021-08-27T17:39:54AEST _algorithms, traveling-salesperson, genetic, greedy, integerLinearProgram, and simulatedAnnealing implementations
 def traveling_salesperson_genetic(graph_adjacencies):
     pass
@@ -202,28 +204,28 @@ def ans_traveling_salesperson_dynamic(dists):
 
 
 coords = [(1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 3)]
-#coords = [(1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 9)]
+coords = [(1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 9), (6,8), (9,4), (12,17), (5, 8), (11, 7), (9, 5), (21, 22), (7, 4), (12, 3), ]
 distances = coords_to_distances(coords)
 
-time_start = time.time()
-result, result_cost  = traveling_salesperson_bruteforce(distances)
-time_end = time.time()
-time_elapsed = time_end - time_start
-print("traveling_salesperson_bruteforce:")
-print("result=(%s)" % str(result))
-print("result_cost=(%s)" % str(result_cost))
-print("time_elapsed=(%s)" % str(time_elapsed))
-print()
-
-time_start = time.time()
-result, result_cost  = traveling_salesperson_backtracking(distances)
-time_end = time.time()
-time_elapsed = time_end - time_start
-print("traveling_salesperson_backtracking:")
-print("result=(%s)" % str(result))
-print("result_cost=(%s)" % str(result_cost))
-print("time_elapsed=(%s)" % str(time_elapsed))
-print()
+#time_start = time.time()
+#result, result_cost  = traveling_salesperson_bruteforce(distances)
+#time_end = time.time()
+#time_elapsed = time_end - time_start
+#print("traveling_salesperson_bruteforce:")
+#print("result=(%s)" % str(result))
+#print("result_cost=(%s)" % str(result_cost))
+#print("time_elapsed=(%s)" % str(time_elapsed))
+#print()
+#
+#time_start = time.time()
+#result, result_cost  = traveling_salesperson_backtracking(distances)
+#time_end = time.time()
+#time_elapsed = time_end - time_start
+#print("traveling_salesperson_backtracking:")
+#print("result=(%s)" % str(result))
+#print("result_cost=(%s)" % str(result_cost))
+#print("time_elapsed=(%s)" % str(time_elapsed))
+#print()
 
 
 time_start = time.time()
