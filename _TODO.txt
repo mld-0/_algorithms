@@ -5,3 +5,4 @@ TODO: 2021-08-27T17:39:54AEST _algorithms, traveling-salesperson, genetic, greed
 TODO: 2021-08-28T18:10:23AEST _algorithms, minmax-ticktacktoe, interactive game against computer
 TODO: 2021-08-28T18:11:22AEST _algorithms, minmax-ticktacktoe, implement opponent_best_move() 
 TODO: 2021-08-30T21:15:17AEST _algorithms, traveling-salesperson, approximation algorithms
+TODO: 2021-09-02T22:37:54AEST _algorithms, suffix-array, is 'suffix_array_naive' correct (what is the definition of a suffix array), (also) what is the use of one?
