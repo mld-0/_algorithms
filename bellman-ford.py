@@ -3,6 +3,7 @@ import math
 import logging
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
+#   Bellman-Ford uses an edges list
 class Graph(object):
     def __init__(self, num_verticies):
         self.verticies = list(range(num_verticies))
@@ -12,6 +13,7 @@ class Graph(object):
         self.edges.append(edge)
 
 
+#   Same as used in dijkstra
 def trace_route(graph, predecessors, start, end):
     """Given 'predecessors' array, determine path found from 'end' to 'start'"""
     if start == end:
