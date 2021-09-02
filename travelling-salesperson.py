@@ -103,12 +103,12 @@ def traveling_salesperson_dynamic(graph_adjacencies):
     #   P[k][j]:    previous node from j <after visiting all nodes in S for k(S)?>
     P = [ [None for y in range(len(graph_adjacencies))] for x in range(2**len(graph_adjacencies)) ]
 
-    #   k describes nodes included in S, k(S) = sum([ 2**i for i in S ])
 
     #   Fill arrays 'C', 'P'
     for size in range(1, len(graph_adjacencies)):
         for S in itertools.combinations(range(1, len(graph_adjacencies)), size):
             S = (0,) + S
+            #   k describes nodes included in S, k(S) = sum([ 2**i for i in S ])
             k = sum([ 2**i for i in S ])
             for i in S:
                 if i == 0:
@@ -119,7 +119,6 @@ def traveling_salesperson_dynamic(graph_adjacencies):
                     trial_C = C[k^(2**i)][j] + graph_adjacencies[j][i]
                     if trial_C < C[k][i]:
                         C[k][i] = trial_C
-                        #result.append(j)
                         P[k][i] = j
 
     #   determine optimal route cost, and last point in route before returning to 0
@@ -131,6 +130,8 @@ def traveling_salesperson_dynamic(graph_adjacencies):
     k = (2**len(graph_adjacencies) - 1)
     #   iterate for number of nodes visited, minus start/end
     for i in range(len(graph_adjacencies)-1):
+        #print("k=(%s)" % str(k))
+        #print("result_index=(%s)" % str(result_index))
         result.append(result_index)
         #   update k(S) to remove 'result_index' from S
         new_k = k & ~(2**result_index)
@@ -204,28 +205,28 @@ def ans_traveling_salesperson_dynamic(dists):
 
 
 coords = [(1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 3)]
-coords = [(1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 9), (6,8), (9,4), (12,17), (5, 8), (11, 7), (9, 5), (21, 22), (7, 4), (12, 3), ]
+#coords = [(1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 9), (6,8), (9,4), (12,17), (5, 8), (11, 7), (9, 5), (21, 22), (7, 4), (12, 3), ]
 distances = coords_to_distances(coords)
 
-#time_start = time.time()
-#result, result_cost  = traveling_salesperson_bruteforce(distances)
-#time_end = time.time()
-#time_elapsed = time_end - time_start
-#print("traveling_salesperson_bruteforce:")
-#print("result=(%s)" % str(result))
-#print("result_cost=(%s)" % str(result_cost))
-#print("time_elapsed=(%s)" % str(time_elapsed))
-#print()
-#
-#time_start = time.time()
-#result, result_cost  = traveling_salesperson_backtracking(distances)
-#time_end = time.time()
-#time_elapsed = time_end - time_start
-#print("traveling_salesperson_backtracking:")
-#print("result=(%s)" % str(result))
-#print("result_cost=(%s)" % str(result_cost))
-#print("time_elapsed=(%s)" % str(time_elapsed))
-#print()
+time_start = time.time()
+result, result_cost  = traveling_salesperson_bruteforce(distances)
+time_end = time.time()
+time_elapsed = time_end - time_start
+print("traveling_salesperson_bruteforce:")
+print("result=(%s)" % str(result))
+print("result_cost=(%s)" % str(result_cost))
+print("time_elapsed=(%s)" % str(time_elapsed))
+print()
+
+time_start = time.time()
+result, result_cost  = traveling_salesperson_backtracking(distances)
+time_end = time.time()
+time_elapsed = time_end - time_start
+print("traveling_salesperson_backtracking:")
+print("result=(%s)" % str(result))
+print("result_cost=(%s)" % str(result_cost))
+print("time_elapsed=(%s)" % str(time_elapsed))
+print()
 
 
 time_start = time.time()
