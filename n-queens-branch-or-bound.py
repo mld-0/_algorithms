@@ -1,5 +1,6 @@
 import pprint
 
+#   LINK: https://www.geeksforgeeks.org/n-queen-problem-using-branch-and-bound/
 
 def square_is_safe(n, row, col, slashCode, backslashCode, rowLookup, slashCodeLookup, backslashCodeLookup):
     if (slashCodeLookup[slashCode[row][col]] or backslashCodeLookup[backslashCode[row][col]] or rowLookup[row]):
