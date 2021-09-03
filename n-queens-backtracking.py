@@ -2,14 +2,14 @@ import pprint
 
 
 def n_queens_valid(queens_list, n):
-    board = n_queens_fill_board(queens_list, n, False)
+    board = n_queens_attack_board(queens_list, n, False)
     for row, col in queens_list:
         if board[row][col] > 0:
             return False
 
     return True
 
-def n_queens_fill_board(queens_list, n, attack_self=False):
+def n_queens_attack_board(queens_list, n, attack_self=False):
     board = [ [ 0 for col in range(n) ] for row in range(n) ]
 
     for row, col in queens_list:
