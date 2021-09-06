@@ -13,6 +13,7 @@ class Trie(object):
         self.root = TrieNode()
 
     def insert(self, key):
+        """Insert word in Trie"""
         loop_node = self.root
 
         for level in range(len(key)):
@@ -27,6 +28,7 @@ class Trie(object):
 
     
     def search(self, key):
+        """Search for word in Trie"""
         loop_node = self.root
 
         for level in range(len(key)):
@@ -40,11 +42,20 @@ class Trie(object):
         return loop_node.isEndOfWord
 
 
+    def display(self, node, text, level):
+        """Print words in Trie"""
+        if node.isEndOfWord != False:
+            print("\t%s" % text)
+
+        for i in sorted(node.children.keys()):
+            text_list = list(text)
+            text_list[level] = i
+            text = ''.join(text_list)
+            self.display(node.children[i], text, level+1)
+        
+
     #   TODO: 2021-09-06T19:05:29AEST _algorithms, trie, implement remove(), print(), longest_matching_prefix()
     def remove(self, key, depth=0):
-        raise Exception("Unimplemented")
-
-    def print(self):
         raise Exception("Unimplemented")
 
     def longest_matching_prefix(self, input_str):
@@ -52,7 +63,8 @@ class Trie(object):
 
 
 def main():
-    keys = [ "the", "a", "there", "anaswe", "any", "by", "their" ]
+    #keys = [ "the", "a", "there", "anaswe", "any", "by", "their" ]
+    keys = [ "the", "a", "there", "answer", "any", "by", "bye", "their" ]
 
     t = Trie()
 
@@ -64,6 +76,11 @@ def main():
     for loop_search in search_list:
         result = t.search(loop_search)
         print("loop_search=(%s), result=(%s)" % (loop_search, result))
+
+    text = " " * 20
+    level = 0
+    print("t.display:")
+    t.display(t.root, text, level)
 
 
 if __name__ == "__main__":
