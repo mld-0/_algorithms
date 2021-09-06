@@ -7,3 +7,4 @@ TODO: 2021-08-28T18:11:22AEST _algorithms, minmax-ticktacktoe, implement opponen
 TODO: 2021-08-30T21:15:17AEST _algorithms, traveling-salesperson, approximation algorithms
 TODO: 2021-09-02T22:37:54AEST _algorithms, suffix-array, is 'suffix_array_naive' correct (what is the definition of a suffix array), (also) what is the use of one?
 TODO: 2021-09-03T03:12:28AEST _algorithms, suffix-arrays, (applications of): longest_repeated_substring, longest_common_substring, longest_palindromic_substring
+TODO: 2021-09-06T19:05:29AEST _algorithms, trie, implement remove(), print(), longest_matching_prefix()
