@@ -11,10 +11,13 @@ class Trie(object):
     def __init__(self):
         self.root = TrieNode()
 
+    #   TODO: 2021-09-06T19:05:29AEST _algorithms, trie, implement remove(), print(), longest_matching_prefix()
+    def longest_matching_prefix(self, input_str):
+        raise Exception("Unimplemented")
+
 
     def node_is_empty(self, node):
         return len(node.children.keys()) == 0
-
 
     def insert(self, key):
         """Insert word in Trie"""
@@ -30,7 +33,6 @@ class Trie(object):
 
         loop_node.isEndOfWord = True
 
-
     def search(self, key):
         """Search for word in Trie"""
         loop_node = self.root
@@ -44,7 +46,6 @@ class Trie(object):
             loop_node = loop_node.children[index]
 
         return loop_node.isEndOfWord
-
 
     def get_words(self, node=None, text="", level=0):
         """Get list of words in Trie"""
@@ -62,7 +63,6 @@ class Trie(object):
                 result.append(word)
 
         return result
-
 
     def remove(self, key, node=None, depth=0):
         if node is None:
@@ -89,12 +89,6 @@ class Trie(object):
             node = TrieNode()
 
         return node
-
-
-    #   TODO: 2021-09-06T19:05:29AEST _algorithms, trie, implement remove(), print(), longest_matching_prefix()
-    def longest_matching_prefix(self, input_str):
-        raise Exception("Unimplemented")
-
 
 def main():
     #keys = [ "the", "a", "there", "anaswe", "any", "by", "their" ]
@@ -126,5 +120,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
