@@ -30,11 +30,11 @@ def trace_route(graph, predecessors, start, end):
 def dijkstra(graph, source):
     """Determine the shortest distance from vertex 'source' to all other verticies"""
 
-    #   distances[i]:   distance from verticies 'source' to 'i'
+    #   distances[i]:   distance from vertex 'source' to 'i'
     distances = [ math.inf for x in graph.verticies ]
     distances[source] = 0
 
-    #   predecessors[i]: from where do we depart to arive at vertex 'i' when starting from 'source'
+    #   predecessors[i]: from where do we depart to arrive at vertex 'i' when starting from 'source'
     predecessors = [ None for x in graph.verticies ]
 
     #   At each stage, we search for vertex 'x' in 'Q' that gives mininum 'distances[x]'
