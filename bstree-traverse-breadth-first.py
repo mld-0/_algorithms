@@ -7,9 +7,8 @@ from collections import deque
 from typing import List
 #   {{{2
 
-#   TODO: 2021-09-22T22:17:35AEST _algorithms, binary tree, depth-first and breadth-first traversal, recusrive and iterative
-
 class TreeNode:
+    #   {{{
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
@@ -164,9 +163,11 @@ class TreeNode:
         lines = [first_line, second_line] + [a + u * ' ' + b for a, b in zipped_lines]
         return lines, n + m + u, max(p, q) + 2, n + u // 2
         #   }}}
+        #   }}}
 
+#   replacing the queue with a stack, and adding node right before left, results in depth-first preorder traversal
 
-def get_nodes_breadth_first_iterative(root: TreeNode) -> List[TreeNode]:
+def breadth_first_iterative(root: TreeNode) -> List[TreeNode]:
     if root is None:
         return []
 
@@ -188,14 +189,14 @@ def get_nodes_breadth_first_iterative(root: TreeNode) -> List[TreeNode]:
     return result
 
 
-def get_nodes_breadth_first_recursive(root: TreeNode) -> List[TreeNode]:
+def breadth_first_recursive(root: TreeNode) -> List[TreeNode]:
     raise Exception("Unimplemented")
 
 
 values = [1,2,3,4,5,6,7]
 head = TreeNode.from_list(values)
 print(head)
-result = get_nodes_breadth_first_iterative(head)
+result = breadth_first_iterative(head)
 print("result=(%s)" % str(result))
 
 
