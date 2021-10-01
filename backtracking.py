@@ -86,7 +86,7 @@ def n_queens_attack_board(queens_list, n, attack_self=False):
     #   }}}
 
 
-def combinations(values: List, k: int):
+def combinations(values: List, k: int) -> List:
     result = []
 
     def backtrack(first=0, cur=None):
@@ -102,6 +102,21 @@ def combinations(values: List, k: int):
             cur.pop()
 
     backtrack()
+    return result
+
+
+def permutations(values: List) -> List:
+    result = []
+
+    def permute(first=0):
+        if first == len(values):
+            result.append(values[:])
+        for i in range(first, len(values)):
+            values[first], values[i] = values[i], values[first]
+            permute(first+1)
+            values[first], values[i] = values[i], values[first]
+
+    permute()
     return result
 
 
@@ -126,9 +141,18 @@ def test_n_queens_backtracking():
 
 def test_combinations():
     #   {{{
-    values = list(range(5))
+    values = list(range(4))
     result = combinations(values, 3)
     check = [ list(x) for x in itertools.combinations(values, 3) ]
+    print("result=(%s)" % str(result))
+    assert sorted(result) == sorted(check), "Check failed"
+    #   }}}
+
+def test_permute():
+    #   {{{
+    values = list(range(3))
+    result = permutations(values)
+    check = [ list(x) for x in itertools.permutations(values) ]
     print("result=(%s)" % str(result))
     assert sorted(result) == sorted(check), "Check failed"
     #   }}}
@@ -143,6 +167,9 @@ def main():
     print()
     print("test_combinations():")
     test_combinations()
+    print()
+    print("test_permute():")
+    test_permute()
     print()
     #   }}}
 
