@@ -2,6 +2,8 @@
 #   vim: set tabstop=4 modeline modelines=10 foldmethod=marker:
 #   vim: set foldlevel=2 foldcolumn=2:
 #   }}}1
+import itertools
+from typing import List
 #   {{{2
 
 #   TODO: 2021-09-30T20:24:07AEST _algorithms, backtracking overview/compilation
@@ -26,17 +28,6 @@ def generateParenthesis(n):
             S.pop()
     backtrack()
     return result
-
-
-def test_generateParenthesis():
-    #   {{{
-    values_list = [ 3, 1 ]
-    check_list = [ ["((()))","(()())","(())()","()(())","()()()"], [ "()" ] ]
-    for value, check in zip(values_list, check_list):
-        result = generateParenthesis(value)
-        print("result=(%s)" % str(result))
-        assert result == check, "Check failed"
-    #   }}}
 
 
 def n_queens_backtracking(n, queens_list=None, col=0):
@@ -68,7 +59,6 @@ def n_queens_valid(queens_list, n):
     return True
     #   }}}
 
-
 def n_queens_attack_board(queens_list, n, attack_self=False):
     """Given list of queen positions, and dimensions of board, return grid with values indicating how many times each square is under attack. Square containing queen is excluded if 'attack_self' is False."""
     #   {{{
@@ -94,21 +84,65 @@ def n_queens_attack_board(queens_list, n, attack_self=False):
             board[row][col] += 1
     return board
     #   }}}
-    
-
-n = 8
-queens_list = n_queens_backtracking(n)
-valid = n_queens_valid(queens_list, n)
-print("queens_list=(%s)" % str(queens_list))
-print("valid=(%s)" % valid)
-print()
 
 
+def combinations(values: List, k: int):
+    result = []
+
+    def backtrack(first=0, cur=None):
+        if cur is None:
+            cur = []
+        #   if combination is done
+        if len(cur) == k:
+            result.append(cur[:])
+            return
+        for i in range(first, len(values)):
+            cur.append(values[i])
+            backtrack(i+1, cur)
+            cur.pop()
+
+    backtrack()
+    return result
+
+
+def test_generateParenthesis():
+    #   {{{
+    values_list = [ 3, 1 ]
+    check_list = [ ["((()))","(()())","(())()","()(())","()()()"], [ "()" ] ]
+    for value, check in zip(values_list, check_list):
+        result = generateParenthesis(value)
+        print("result=(%s)" % str(result))
+        assert result == check, "Check failed"
+    #   }}}
+ 
+def test_n_queens_backtracking():
+    #   {{{
+    n = 8
+    queens_list = n_queens_backtracking(n)
+    valid = n_queens_valid(queens_list, n)
+    print("queens_list=(%s)" % str(queens_list))
+    assert valid == True, "Check failed"
+    #   }}}
+
+def test_combinations():
+    #   {{{
+    values = list(range(5))
+    result = combinations(values, 3)
+    check = [ list(x) for x in itertools.combinations(values, 3) ]
+    print("result=(%s)" % str(result))
+    assert sorted(result) == sorted(check), "Check failed"
+    #   }}}
 
 def main():
     #   {{{
     print("test_generateParenthesis():")
     test_generateParenthesis()
+    print()
+    print("test_n_queens_backtracking():")
+    test_n_queens_backtracking()
+    print()
+    print("test_combinations():")
+    test_combinations()
     print()
     #   }}}
 
