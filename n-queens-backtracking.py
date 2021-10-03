@@ -1,7 +1,25 @@
 import pprint
 
+def n_queens_backtracking(n, queens_list=None, col=0):
+    """Solve n-queens problem for a given sized board using backtracking"""
+    if queens_list is None:
+        queens_list = []
+
+    if n <= col:
+        return queens_list
+
+    for row in range(n):
+        loop_square = (row, col)
+        queens_list.append(loop_square)
+        if n_queens_valid(queens_list, n):
+            if n_queens_backtracking(n, queens_list, col+1) != False:
+                return queens_list
+        queens_list.pop()
+
+    return False
 
 def n_queens_valid(queens_list, n):
+    """Determine whether any of the given list of queens are under attack"""
     board = n_queens_attack_board(queens_list, n, False)
     for row, col in queens_list:
         if board[row][col] > 0:
@@ -10,6 +28,7 @@ def n_queens_valid(queens_list, n):
     return True
 
 def n_queens_attack_board(queens_list, n, attack_self=False):
+    """Given list of queen positions, and dimensions of board, return grid with values indicating how many times each square is under attack. Square containing queen is excluded if 'attack_self' is False."""
     board = [ [ 0 for col in range(n) ] for row in range(n) ]
 
     for row, col in queens_list:
@@ -35,25 +54,6 @@ def n_queens_attack_board(queens_list, n, attack_self=False):
 
     return board
 
-    
-
-def n_queens_backtracking(n, queens_list=None, col=0):
-    if queens_list is None:
-        queens_list = []
-
-    if n <= col:
-        return queens_list
-
-    for row in range(n):
-        loop_square = (row, col)
-        queens_list.append(loop_square)
-        if n_queens_valid(queens_list, n):
-            if n_queens_backtracking(n, queens_list, col+1) != False:
-                return queens_list
-        queens_list.pop()
-
-    return False
-    
 
 n = 8
 queens_list = n_queens_backtracking(n)
