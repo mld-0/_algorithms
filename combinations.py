@@ -14,7 +14,6 @@ class Solution:
         #return self.combine_Lexicographic(n, k)
 
 
-    #   runtime: beats 49%
     def combine_Backtracking(self, n: int, k: int):
         result = []
         values = list(range(1, n+1))
@@ -35,7 +34,6 @@ class Solution:
         return result
 
 
-    #   runtime: beats 34%
     def combine_Recursive(self, n: int, k: int): 
         result = []
         values = list(range(1, n+1))
@@ -51,7 +49,6 @@ class Solution:
         return result
 
 
-    #   runtime: beats 95%
     def combine_Lexicographic(self, n: int, k: int):
         #   first combination
         nums = list(range(1, k+1)) + [n+1]
@@ -72,14 +69,12 @@ class Solution:
 
     
 
-    #   runtime: beats 99%
     def combine_Itertools(self, n: int, k: int) -> List[List[int]]:
         values = list(range(1, n+1))
         result = [ list(x) for x in itertools.combinations(values, k) ]
         return result
 
 
-    #   runtime: beats 90%
     def combine_ItertoolsEquivalent(self, n: int, k: int) -> List[List[int]]:
 
         def combinations(iterable, r):
