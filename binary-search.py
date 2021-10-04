@@ -11,6 +11,8 @@ def binary_search(nums: list[int], target: int) -> int:
 
     while l <= r:
         mid = (r + l) // 2
+        #   alternatively, less likely to overflow: 
+        #   mid = l + (r - l) // 2
         if nums[mid] == target:
             return mid
         elif nums[mid] < target:
