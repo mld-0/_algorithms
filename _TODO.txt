@@ -8,3 +8,9 @@ TODO: 2021-08-30T21:15:17AEST _algorithms, traveling-salesperson, approximation 
 TODO: 2021-09-02T22:37:54AEST _algorithms, suffix-array, is 'suffix_array_naive' correct (what is the definition of a suffix array), (also) what is the use of one?
 TODO: 2021-09-03T03:12:28AEST _algorithms, suffix-arrays, (applications of): longest_repeated_substring, longest_common_substring, longest_palindromic_substring
 TODO: 2021-09-06T19:05:29AEST _algorithms, trie, implement remove(), print(), longest_matching_prefix()
+TODO: 2021-09-21T18:03:02AEST _algorithms, connected-component labeling
+TODO: 2021-09-22T22:17:35AEST _algorithms, binary tree, depth-first and breadth-first traversal, recursive and iterative
+TODO: 2021-09-30T20:22:47AEST _algorithms, dynamic-programming overview/compilation
+TODO: 2021-09-30T20:24:07AEST _algorithms, backtracking overview/compilation
+TODO: 2021-10-03T22:21:03AEDT _algorithms, bit-manipulation, bin2int, int2bin example functions
+TODO: 2021-10-04T21:22:34AEDT _algorithms, two-pointers examples
