@@ -82,6 +82,41 @@ def bsearch_findMin(nums: List[int]) -> int:
         else:
             r = mid - 1
 
+#   bsearch leftmost insertion point:
+#   {{{
+#         BinarySearch_Left(A[0..N-1], value) {
+#             low = 0
+#             high = N - 1
+#             while (low <= high) {
+#                 // invariants: value > A[i] for all i < low
+#                                value <= A[i] for all i > high
+#                 mid = (low + high) / 2
+#                 if (A[mid] >= value)
+#                     high = mid - 1
+#                 else
+#                     low = mid + 1
+#             }
+#             return low
+#         }
+#   }}}
+#   bsearch rightmost insertion point:
+#   {{{
+#         BinarySearch_Right(A[0..N-1], value) {
+#             low = 0
+#             high = N - 1
+#             while (low <= high) {
+#                 // invariants: value >= A[i] for all i < low
+#                                value < A[i] for all i > high
+#                 mid = (low + high) / 2
+#                 if (A[mid] > value)
+#                     high = mid - 1
+#                 else
+#                     low = mid + 1
+#             }
+#             return low
+#         }
+#   }}}
+
 
 def test_binary_search():
     #   {{{
