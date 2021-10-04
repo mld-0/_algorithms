@@ -66,7 +66,7 @@ def twoSum_TwoPointers(numbers: List[int], target: int) -> List[int]:
             r -= 1
 
 
-def reverseList_TwoPointers(s: List[str]) -> None:
+def reverseListInplace_TwoPointers(s: List[str]) -> None:
     """Reverse the elements of list 's' inplace"""
     l = 0
     r = len(s) - 1
