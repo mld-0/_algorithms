@@ -62,7 +62,7 @@ def bsearch_find_right(nums: List[int], target: int) -> List[int]:
 
 
 def bsearch_findMin(nums: List[int]) -> int:
-    """Binary search for index about which the list has been rotated (index of min element in rotated sorted list)"""
+    """Binary search for index about which sorted list 'nums' has been rotated (index of min element)"""
     l = 0
     r = len(nums) - 1
     if len(nums) == 1:
