@@ -1,19 +1,19 @@
 
+
 def two_sum_twoPointers(nums: list, target: int) -> tuple:
-    #   sort nums as 'nums_sorted', with 'indexes' giving the indexes of unsorted values such that: nums_sorted[indexes[i]] = nums[i]
-    temp = sorted(zip(nums, range(0,len(nums))), key=lambda x: x[0])
-    nums_sorted = [x[0] for x in temp]
-    indexes = [x[1] for x in temp]
-    i = 0
-    j = len(nums_sorted)-1
-    while i < j:
-        trial = nums_sorted[i] + nums_sorted[j]
+    #   two-pointers approach requires 'nums' be sorted
+    #   'nums_indexes' describes the map from 'nums' to 'nums_sorted': nums_sorted[nums_indexes[i]] = nums[i]
+    nums_sorted, nums_indexes = zip( *sorted(zip(nums, range(0,len(nums))), key=lambda x: x[0]) )
+    l = 0
+    r = len(nums_sorted) - 1
+    while l < r:
+        trial = nums_sorted[l] + nums_sorted[r]
         if trial == target:
-            return (indexes[i], indexes[j])
+            return (nums_indexes[l], nums_indexes[r])
         elif trial < target:
-            i += 1
+            l += 1
         elif trial > target:
-            j -= 1
+            r -= 1
 
 
 def two_sum_map(nums: list, target: int) -> tuple:
@@ -31,13 +31,10 @@ input_check = [ (0,1), (1,2), (0,1) ]
 
 for (nums, target), check in zip(input_values, input_check):
     print("nums=(%s), target=(%s)" % (str(nums), str(target)))
-
     result = two_sum_twoPointers(nums, target)
-    assert( result == check )
-
+    assert result == check, "Check failed i" 
     result = two_sum_map(nums, target)
-    assert( result == check )
-
+    assert result == check, "Check failed ii"
     print("result=(%s)" % str(result))
     print()
 
