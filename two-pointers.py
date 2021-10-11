@@ -46,7 +46,7 @@ def middleNodeLinkedList_TwoPointers(head: Optional[ListNode]) -> Optional[ListN
     """Return the middle node in a given linked list"""
     l = head
     r = head
-    while (not r is None) and (not r.next is None):
+    while (r is not None) and (r.next is not None):
         l = l.next
         r = r.next.next
     return l
@@ -93,6 +93,33 @@ def removeNthFromEndLinkedList_TwoPointers(head: ListNode, n: int) -> ListNode:
 
     l.next = l.next.next
     return head
+
+
+def intervalIntersection_TwoPointers(A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+    """Given two sorted list of intervals (as start/end points), return intersection as a sorted list of intervals"""
+    result = []
+    #   position in A
+    l = 0
+    #   position in B
+    r = 0
+
+    while l < len(A) and r < len(B):
+        #   start of interval
+        low = max(A[l][0], B[r][0])
+        #   end of interval
+        high = min(A[l][1], B[r][1])
+
+        if low <= high:
+            result.append( [low, high] )
+
+        #   advance interval with smaller end value
+        if A[l][1] < B[r][1]:
+            l += 1
+        else:
+            r += 1
+
+    return result
+
 
 
 def deleteDuplicatesSortedLinkedList_TwoPointers(head: Optional[ListNode]) -> Optional[ListNode]:
@@ -150,12 +177,12 @@ def test_deleteDuplicatesSortedLinkedList_TwoPointers():
         assert result_list == check, "Check failed"
     #   }}}
 
-def test_reverseList_TwoPointers():
+def test_reverseListInplace_TwoPointers():
     #   {{{
     input_values = [ ["h","e","l","l","o"], ["H","a","n","n","a","h"] ]
     input_checks = [ ["o","l","l","e","h"], ["h","a","n","n","a","H"] ]
     for _str, check in zip(input_values, input_checks):
-        reverseList_TwoPointers(_str)
+        reverseListInplace_TwoPointers(_str)
         print("_str=(%s)" % str(_str))
         assert( _str == check )
     #   }}}
@@ -185,6 +212,18 @@ def test_middleNodeLinkedList_TwoPointers():
         assert( result.to_list() == check )
     #   }}}
 
+def test_intervalIntersection_TwoPointers():
+    #   {{{
+    input_values = [ ([[0,2],[5,10],[13,23],[24,25]], [[1,5],[8,12],[15,24],[25,26]]), ([[1,3],[5,9]], []), ([], [[4,8],[10,12]]), ([[1,7]], [[3,10]]) ]
+    input_checks = [ [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]], [], [], [[3,7]] ]
+    for (A, B), check in zip(input_values, input_checks):
+        print("A=(%s), B=(%s)" % (A, B))
+        result = intervalIntersection_TwoPointers(A, B)
+        print("result=(%s)" % result)
+        assert result == check, "Check failed"
+    #   }}}
+
+
 if __name__ == '__main__':
     #   {{{
     print("test_deleteDuplicatesSortedLinkedList_TwoPointers():")
@@ -199,8 +238,11 @@ if __name__ == '__main__':
     print("test_twoSum_TwoPointers():")
     test_twoSum_TwoPointers()
     print()
-    print("test_reverseList_TwoPointers():")
-    test_reverseList_TwoPointers()
+    print("test_reverseListInplace_TwoPointers():")
+    test_reverseListInplace_TwoPointers()
+    print()
+    print("test_intervalIntersection_TwoPointers():")
+    test_intervalIntersection_TwoPointers()
     print()
     #   }}}
 
