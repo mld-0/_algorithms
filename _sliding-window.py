@@ -6,6 +6,9 @@ from typing import List
 from collections import Counter, defaultdict
 #   {{{2
 
+#   The Sliding Window technique involves analysing a series of subarrays of an input array, typically in order to reduce a nested loop to a single loop
+
+
 def findAnagrams_SlidingWindowCounter(s: str, p: str) -> List[int]:
     """Find start indices of all anagrams of search string 'p' in input string 's', updating counter for each search window"""
     if len(p) > len(s):
