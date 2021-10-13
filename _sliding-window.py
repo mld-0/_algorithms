@@ -9,6 +9,26 @@ from collections import Counter, defaultdict
 #   The Sliding Window technique involves analysing a series of subarrays of an input array, typically in order to reduce a nested loop to a single loop
 
 
+def lengthOfLongestSubstring_SlidingWindowSeenDict(s: str) -> int:
+    """Determine length of longest substring in 's' containing no repeat characters"""
+    result = ""
+    #   seen[c]: position where 'c' last seen
+    seen = dict()
+    l = 0
+
+    for r in range(len(s)):
+        #   character at 'r' seen before, advance 'l' to after previous instance of said character
+        if s[r] in seen and seen[s[r]] >= l:
+            l = seen[s[r]] + 1
+        trial = s[l:r+1]
+        if len(trial) > len(result):
+            result = trial
+        seen[s[r]] = r
+
+    return len(result)
+
+
+
 def findAnagrams_SlidingWindowCounter(s: str, p: str) -> List[int]:
     """Find start indices of all anagrams of search string 'p' in input string 's', updating counter for each search window"""
     if len(p) > len(s):
@@ -45,6 +65,16 @@ def findAnagrams_SlidingWindowCounter(s: str, p: str) -> List[int]:
     return result
 
 
+def test_lengthOfLongestSubstring_SlidingWindowSeenDict():
+    #   {{{
+    input_values = [ "abcabcbb", "bbbbb", "pwwkew", "", " ", ]
+    input_checks = [ 3, 1, 3, 0, 1, ]
+    for input_str, check in zip(input_values, input_checks):
+        print("input_str=(%s)" % input_str)
+        result = lengthOfLongestSubstring_SlidingWindowSeenDict(input_str)
+        print("result=(%s)" % result)
+        assert result == check, "Check failed"
+    #   }}}
 
 def test_findAnagrams_SlidingWindowCounter():
     #   {{{
@@ -59,6 +89,9 @@ def test_findAnagrams_SlidingWindowCounter():
 
 if __name__ == '__main__':
     #   {{{
+    print("test_lengthOfLongestSubstring_SlidingWindowSeenDict():")
+    test_lengthOfLongestSubstring_SlidingWindowSeenDict()
+    print()
     print("test_findAnagrams_SlidingWindowCounter():")
     test_findAnagrams_SlidingWindowCounter()
     print()
