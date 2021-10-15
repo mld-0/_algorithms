@@ -193,10 +193,10 @@ def breadth_first_recursive(root: TreeNode) -> List[TreeNode]:
     raise NotImplementedError()
 
 
-values = [1,2,3,4,5,6,7]
+values = list(range(1,16))
 head = TreeNode.from_list(values)
 print(head)
 result = breadth_first_iterative(head)
 print("result=(%s)" % str(result))
-
+print()
 

@@ -251,7 +251,6 @@ def inorder_iterative(node: TreeNode) -> List:
 
 
 
-values = [1,2,3,4,5,6,7]
 values = list(range(1, 16))
 head = TreeNode.from_list(values)
 print(head)
@@ -280,7 +279,4 @@ result = inorder_iterative(head)
 print("inorder_iterative:")
 print("result=(%s)" % str(result))
 print()
-
-
-
 
