@@ -1,6 +1,6 @@
 #   VIM SETTINGS: {{{3
 #   vim: set tabstop=4 modeline modelines=10 foldmethod=marker:
-#   vim: set foldlevel=2 foldcolumn=1:
+#   vim: set foldlevel=2 foldcolumn=2:
 #   }}}1
 from __future__ import annotations
 from typing import List
@@ -177,6 +177,28 @@ def preorder_recursive(node: TreeNode, result=None) -> List:
     return result
 
 
+def postorder_recursive(node: TreeNode, result=None) -> List:
+    if node is None:
+        return []
+    if result is None:
+        result = []
+    postorder_recursive(node.left, result)
+    postorder_recursive(node.right, result)
+    result.append(node.val)
+    return result
+
+
+def inorder_recursive(node: TreeNode, result=None) -> List:
+    if node is None:
+        return []
+    if result is None:
+        result = []
+    inorder_recursive(node.left, result)
+    result.append(node.val)
+    inorder_recursive(node.right, result)
+    return result
+
+
 def preorder_iterative(node: TreeNode) -> List:
     if node is None:
         return []
@@ -192,24 +214,13 @@ def preorder_iterative(node: TreeNode) -> List:
     return result
 
 
-def postorder_recursive(node: TreeNode, result=None) -> List:
-    if node is None:
-        return []
-    if result is None:
-        result = []
-    postorder_recursive(node.left, result)
-    postorder_recursive(node.right, result)
-    result.append(node.val)
-    return result
-
-
 def postorder_iterative(node: TreeNode) -> List:
     if node is None:
         return []
     result = []
     stack = []
     lastNodeVisited = None
-    while (len(stack) > 0) or (not node is None):
+    while (len(stack) > 0) or (node is not None):
         if not node is None:
             stack.append(node)
             node = node.left
@@ -220,17 +231,6 @@ def postorder_iterative(node: TreeNode) -> List:
             else:
                 result.append(peekNode.val)
                 lastNodeVisited = stack.pop()
-    return result
-
-
-def inorder_recursive(node: TreeNode, result=None) -> List:
-    if node is None:
-        return []
-    if result is None:
-        result = []
-    inorder_recursive(node.left, result)
-    result.append(node.val)
-    inorder_recursive(node.right, result)
     return result
 
 
