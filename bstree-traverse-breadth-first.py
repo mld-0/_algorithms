@@ -165,7 +165,7 @@ class TreeNode:
         #   }}}
         #   }}}
 
-#   replacing the queue with a stack, and adding node right before left, results in depth-first preorder traversal
+#   replacing the queue with a stack, (and adding node right before left), results in depth-first preorder traversal
 
 def breadth_first_iterative(root: TreeNode) -> List[TreeNode]:
     if root is None:
@@ -190,7 +190,7 @@ def breadth_first_iterative(root: TreeNode) -> List[TreeNode]:
 
 
 def breadth_first_recursive(root: TreeNode) -> List[TreeNode]:
-    raise Exception("Unimplemented")
+    raise NotImplementedError()
 
 
 values = [1,2,3,4,5,6,7]
