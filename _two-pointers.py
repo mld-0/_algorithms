@@ -53,13 +53,13 @@ def middleNodeLinkedList_TwoPointers(head: Optional[ListNode]) -> Optional[ListN
 
 
 def twoSum_TwoPointers(numbers: List[int], target: int) -> List[int]:
-    """Find the indexes (1-indexed) of values in sorted list 'numbers' which add to 'target'"""
+    """Find the indexes of values in sorted list 'numbers' which add to 'target'"""
     l = 0
     r = len(numbers) - 1
     while l < r:
         trial = numbers[l] + numbers[r]
         if trial == target:
-            return [l+1, r+1]
+            return [l, r]
         elif trial < target:
             l += 1
         elif trial > target:
@@ -153,7 +153,7 @@ def deleteDuplicatesSortedLinkedList_TwoPointers(head: Optional[ListNode]) -> Op
 def test_twoSum_TwoPointers():
     #   {{{
     input_values = [ ([2,7,11,15], 9), ([2,3,4], 6), ([-1,0], -1), ]
-    input_checks = [ [1,2], [1,3], [1,2] ]
+    input_checks = [ [0,1], [0,2], [0,1] ]
     for (numbers, target), check in zip(input_values, input_checks):
         assert( numbers == sorted(numbers) )
         result = twoSum_TwoPointers(numbers, target)
