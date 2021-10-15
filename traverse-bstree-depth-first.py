@@ -63,7 +63,7 @@ class TreeNode:
                 else:
                     parent_node.right= TreeNode(val)
                     loop_nodes.append(parent_node.right)
-                tree_nodes.append(loop_nodes)
+            tree_nodes.append(loop_nodes)
         return head
         #   }}}
     def to_list_nested(self):
@@ -252,6 +252,7 @@ def inorder_iterative(node: TreeNode) -> List:
 
 
 values = [1,2,3,4,5,6,7]
+values = list(range(1, 16))
 head = TreeNode.from_list(values)
 print(head)
 print()
@@ -259,7 +260,6 @@ print()
 result = preorder_recursive(head)
 print("preorder_recursive:")
 print("result=(%s)" % str(result))
-print()
 result = preorder_iterative(head)
 print("preorder_iterative:")
 print("result=(%s)" % str(result))
@@ -268,7 +268,6 @@ print()
 result = postorder_recursive(head)
 print("postorder_recursive:")
 print("result=(%s)" % str(result))
-print()
 result = postorder_iterative(head)
 print("postorder_iterative:")
 print("result=(%s)" % str(result))
@@ -277,7 +276,6 @@ print()
 result = inorder_recursive(head)
 print("inorder_recursive:")
 print("result=(%s)" % str(result))
-print()
 result = inorder_iterative(head)
 print("inorder_iterative:")
 print("result=(%s)" % str(result))

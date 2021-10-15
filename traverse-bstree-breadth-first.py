@@ -62,7 +62,7 @@ class TreeNode:
                 else:
                     parent_node.right= TreeNode(val)
                     loop_nodes.append(parent_node.right)
-                tree_nodes.append(loop_nodes)
+            tree_nodes.append(loop_nodes)
         return head
         #   }}}
     def to_list_nested(self):
