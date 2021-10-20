@@ -10,8 +10,64 @@ from typing import List
 
 #   Backtracking: (typically using call stack) building a solution incrementally, removing candidates from solution as they are deamed invalid
 
-def generateParenthesis(n):
+def allPathsSourceTarget(graph: List[List[int]]) -> List[List[int]]:
+    """Get list of all paths from 'initialNode' to 'targetNode' using Backtracking DFS for graph given as adjacency list"""
+    initialNode = 0
+    targetNode = len(graph) - 1
     result = []
+
+    def backtrack(node, path):
+        if node == targetNode:
+            result.append(path[:])
+            return
+        for nextNode in graph[node]:
+            path.append(nextNode)
+            backtrack(nextNode, path)
+            path.pop()
+
+    path = [ initialNode ]
+    backtrack(initialNode, path)
+    return result
+
+
+def combinations(values: List, k: int) -> List:
+    result = []
+
+    def backtrack(first=0, cur=None):
+        if cur is None:
+            cur = []
+        #   if combination is done
+        if len(cur) == k:
+            result.append(cur[:])
+            return
+        for i in range(first, len(values)):
+            cur.append(values[i])
+            backtrack(i+1, cur)
+            cur.pop()
+
+    backtrack()
+    return result
+
+
+def permutations(values: List) -> List:
+    result = []
+
+    def backtrack(first=0):
+        if first == len(values):
+            result.append(values[:])
+        for i in range(first, len(values)):
+            values[first], values[i] = values[i], values[first]
+            backtrack(first+1)
+            values[first], values[i] = values[i], values[first]
+
+    backtrack()
+    return result
+
+
+def generateParenthesis(n):
+    """Generate all possible 'balanced' combinations of 'n' open/close brackets"""
+    result = []
+
     def backtrack(S=None, l=0, r=0):
         if S is None:
             S = []
@@ -26,6 +82,7 @@ def generateParenthesis(n):
             S.append(")")
             backtrack(S, l, r+1)
             S.pop()
+
     backtrack()
     return result
 
@@ -86,39 +143,19 @@ def n_queens_attack_board(queens_list, n, attack_self=False):
     #   }}}
 
 
-def combinations(values: List, k: int) -> List:
-    result = []
-
-    def backtrack(first=0, cur=None):
-        if cur is None:
-            cur = []
-        #   if combination is done
-        if len(cur) == k:
-            result.append(cur[:])
-            return
-        for i in range(first, len(values)):
-            cur.append(values[i])
-            backtrack(i+1, cur)
-            cur.pop()
-
-    backtrack()
-    return result
 
 
-def permutations(values: List) -> List:
-    result = []
-
-    def permute(first=0):
-        if first == len(values):
-            result.append(values[:])
-        for i in range(first, len(values)):
-            values[first], values[i] = values[i], values[first]
-            permute(first+1)
-            values[first], values[i] = values[i], values[first]
-
-    permute()
-    return result
-
+def test_allPathsSourceTarget():
+    #   {{{
+    #   graph[i] -> list of nodes accessible from node i
+    input_values = [ [[1,2],[3],[3],[]], [[4,3,1],[3,2,4],[3],[4],[]], [[1,2,3],[2],[3],[]], [[1,3],[2],[3],[]], ]
+    input_checks = [ [[0,1,3],[0,2,3]], [[0,4],[0,3,4],[0,1,3,4],[0,1,2,3,4],[0,1,4]], [[0,1,2,3],[0,2,3],[0,3]], [[0,1,2,3],[0,3]], ]
+    for graph, check in zip(input_values, input_checks):
+        print("graph=(%s)" % graph)
+        result = allPathsSourceTarget(graph)
+        print("result=(%s)" % result)
+        assert sorted(result) == sorted(check), "Check failed"
+    #   }}}
 
 def test_generateParenthesis():
     #   {{{
@@ -129,14 +166,14 @@ def test_generateParenthesis():
         print("result=(%s)" % str(result))
         assert result == check, "Check failed"
     #   }}}
- 
+
 def test_n_queens_backtracking():
     #   {{{
     n = 8
     queens_list = n_queens_backtracking(n)
-    valid = n_queens_valid(queens_list, n)
+    isValid = n_queens_valid(queens_list, n)
     print("queens_list=(%s)" % str(queens_list))
-    assert valid == True, "Check failed"
+    assert isValid == True, "Check failed"
     #   }}}
 
 def test_combinations():
@@ -157,13 +194,11 @@ def test_permute():
     assert sorted(result) == sorted(check), "Check failed"
     #   }}}
 
-def main():
+
+if __name__ == '__main__':
     #   {{{
-    print("test_generateParenthesis():")
-    test_generateParenthesis()
-    print()
-    print("test_n_queens_backtracking():")
-    test_n_queens_backtracking()
+    print("test_allPathsSourceTarget():")
+    test_allPathsSourceTarget()
     print()
     print("test_combinations():")
     test_combinations()
@@ -171,8 +206,11 @@ def main():
     print("test_permute():")
     test_permute()
     print()
+    print("test_generateParenthesis():")
+    test_generateParenthesis()
+    print()
+    print("test_n_queens_backtracking():")
+    test_n_queens_backtracking()
+    print()
     #   }}}
-
-if __name__ == '__main__':
-    main()
 

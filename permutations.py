@@ -16,13 +16,13 @@ class Solution:
     def permute_Backtracking(self, nums: List[int]) -> List[List[int]]:
         result = []
 
-        def permute(first=0):
-            if first == len(nums):
+        def permute(index=0):
+            if index == len(nums):
                 result.append(nums[:])
-            for i in range(first, len(nums)):
-                nums[first], nums[i] = nums[i], nums[first]
-                permute(first+1)
-                nums[first], nums[i] = nums[i], nums[first]
+            for i in range(index, len(nums)):
+                nums[index], nums[i] = nums[i], nums[index]
+                permute(index+1)
+                nums[index], nums[i] = nums[i], nums[index]
 
         permute()
         return result
@@ -31,16 +31,14 @@ class Solution:
     def permute_Recursive(self, nums: List[int]) -> List[List[int]]:
         result = []
 
-        def permute(s, answer):
-            if len(s) == 0:
-                result.append(answer)
+        def permute(remaining, combination):
+            if len(combination) == len(nums):
+                result.append(combination[:])
                 return
-            for i in range(len(s)):
-                ch = [ s[i] ]
-                left_substr = s[0:i]
-                right_substr = s[i + 1:]
-                rest = left_substr + right_substr
-                permute(rest, answer + ch)
+            for i in range(len(remaining)):
+                new_remaining = remaining[:i] + remaining[i+1:]
+                new_combination = combination + [ remaining[i] ]
+                permute(new_remaining, new_combination)
 
         permute(nums, [])
         return result
