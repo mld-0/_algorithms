@@ -14,3 +14,6 @@ TODO: 2021-09-30T20:22:47AEST _algorithms, dynamic-programming overview/compilat
 TODO: 2021-09-30T20:24:07AEST _algorithms, backtracking overview/compilation
 TODO: 2021-10-03T22:21:03AEDT _algorithms, bit-manipulation, bin2int, int2bin example functions
 TODO: 2021-10-04T21:22:34AEDT _algorithms, two-pointers examples
+TODO: 2021-10-17T13:34:43AEDT _algorithms, A-star (not done already?)
+TODO: 2021-10-17T14:38:18AEDT _leetcode, 1091-shortest-path-in-binary-matrix A-star solution
+TODO: 2021-10-28T20:28:50AEDT _algorithms, longest-common-subsequence, determine LCS from resulting DP table
