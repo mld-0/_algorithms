@@ -76,6 +76,30 @@ def reverseListInplace_TwoPointers(s: List[str]) -> None:
         r -= 1
 
 
+def removeDuplicatesInPlace_TwoPointers(nums: List[int]) -> int:
+    """Remove duplicates in-place, returning number of unique elements"""
+    #   position of largest unique value
+    l = 0
+    #   position in the list
+    r = 1
+    #   Until we reach end of the list
+    while r < len(nums):
+        #   Current number is larger than largest unique number
+        if nums[r] > nums[l]:
+            #   Add it as the next unique number 
+            nums[l+1] = nums[r]
+            l += 1
+        r += 1
+
+    #   Remove extra values
+    for i in range(l+1, len(nums)):
+        nums[i] = None
+
+    #   Unique values are given by nums[:l+1]
+    return l+1
+
+
+
 def removeNthFromEndLinkedList_TwoPointers(head: ListNode, n: int) -> ListNode:
     """Remove n-th node from linked list"""
     l = head
@@ -177,6 +201,24 @@ def test_deleteDuplicatesSortedLinkedList_TwoPointers():
         assert result_list == check, "Check failed"
     #   }}}
 
+def test_removeDuplicatesInPlace_TwoPointers():
+    #   {{{
+    def validate_result(nums: List[int], expectedNums: List[int], k: int):
+        assert k == len(expectedNums), "Check comparison failed"
+        for i in range(k):
+            assert nums[i] == expectedNums[i], "Check comparison failed"
+    input_values = [ [1,1,2], [0,0,1,1,1,2,2,3,3,4], [-1,0,0,0,0,3,3], ]
+    check_values = [ (2, [1,2]), (5, [0,1,2,3,4]), (3, [-1,0,3]), ]
+    assert len(input_values) == len(check_values), "input/check Mismatch"
+    for nums, (expectedK, expectedNums) in zip(input_values, check_values):
+        nums = nums[:]
+        k = removeDuplicatesInPlace_TwoPointers(nums)
+        print("result=(%s), k=(%s)" % (nums, k))
+        assert k == expectedK, "Check comparison failed"
+        validate_result(nums, expectedNums, k)
+    print()
+    #   }}}
+
 def test_reverseListInplace_TwoPointers():
     #   {{{
     input_values = [ ["h","e","l","l","o"], ["H","a","n","n","a","h"] ]
@@ -217,7 +259,7 @@ def test_intervalIntersection_TwoPointers():
     input_values = [ ([[0,2],[5,10],[13,23],[24,25]], [[1,5],[8,12],[15,24],[25,26]]), ([[1,3],[5,9]], []), ([], [[4,8],[10,12]]), ([[1,7]], [[3,10]]) ]
     input_checks = [ [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]], [], [], [[3,7]] ]
     for (A, B), check in zip(input_values, input_checks):
-        print("A=(%s), B=(%s)" % (A, B))
+        #print("A=(%s), B=(%s)" % (A, B))
         result = intervalIntersection_TwoPointers(A, B)
         print("result=(%s)" % result)
         assert result == check, "Check failed"
@@ -231,6 +273,9 @@ if __name__ == '__main__':
     print()
     print("test_removeNthFromEndLinkedList_TwoPointers():")
     test_removeNthFromEndLinkedList_TwoPointers()
+    print()
+    print("test_removeDuplicatesInPlace_TwoPointers():")
+    test_removeDuplicatesInPlace_TwoPointers()
     print()
     print("test_middleNodeLinkedList_TwoPointers():")
     test_middleNodeLinkedList_TwoPointers()
