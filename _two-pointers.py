@@ -75,6 +75,18 @@ def reverseListInplace_TwoPointers(s: List[str]) -> None:
         l += 1
         r -= 1
 
+def removeElementValue_twoPointers(nums: List[int], val: int) -> int:
+    """Move instances of 'val' to list end in-place, and return number of other elements"""
+    l = 0
+    r = len(nums) - 1
+    while l <= r:
+        if nums[l] == val:
+            nums[l], nums[r] = nums[r], nums[l]
+            r -= 1
+        else:
+            l += 1
+    return l
+
 
 def removeDuplicatesInPlace_TwoPointers(nums: List[int]) -> int:
     """Remove duplicates in-place, returning number of unique elements"""
@@ -97,7 +109,6 @@ def removeDuplicatesInPlace_TwoPointers(nums: List[int]) -> int:
 
     #   Unique values are given by nums[:l+1]
     return l+1
-
 
 
 def removeNthFromEndLinkedList_TwoPointers(head: ListNode, n: int) -> ListNode:
@@ -143,7 +154,6 @@ def intervalIntersection_TwoPointers(A: List[List[int]], B: List[List[int]]) -> 
             r += 1
 
     return result
-
 
 
 def deleteDuplicatesSortedLinkedList_TwoPointers(head: Optional[ListNode]) -> Optional[ListNode]:
@@ -199,6 +209,26 @@ def test_deleteDuplicatesSortedLinkedList_TwoPointers():
             result_list = result.to_list()
         print("result_list=(%s)" % result_list)
         assert result_list == check, "Check failed"
+    #   }}}
+
+def test_removeElementValue_twoPointers():
+    #   {{{
+    def validate_result(nums: List[int], k: int, expectedNums: List[int]):
+        nums[0:k] = sorted(nums[0:k])
+        expectedNums[0:k] = sorted(expectedNums[0:k])
+        for i in range(k):
+            assert nums[i] == expectedNums[i], "Check comparison failed (nums)"
+    input_values = [ ([3,2,2,3], 3), ([0,1,2,2,3,0,4,2], 2), ([1], 1), ([3,3], 3), ([4,5], 4), ([2], 3), ([2,2,3], 2), ]
+    check_values = [ (2, [2,2,None,None]), (5, [0,1,4,0,3,None,None,None]), (0, [None]), (0, [None,None]), (1, [5,None]), (1, [2]), (1, [3,None]), ]
+    assert len(input_values) == len(check_values), "input/check len mismatch"
+    for (nums, val), (expectedK, expectedNums) in zip(input_values, check_values):
+        nums = nums[:]
+        expectedNums[:] = expectedNums
+        print("nums=(%s), val=(%s)" % (nums, val))
+        k = removeElementValue_twoPointers(nums, val)
+        print("result=(%s), k=(%s)" % (nums, k))
+        assert k == expectedK, "Check comparison failed (k)"
+        validate_result(nums, k, expectedNums)
     #   }}}
 
 def test_removeDuplicatesInPlace_TwoPointers():
@@ -273,6 +303,9 @@ if __name__ == '__main__':
     print()
     print("test_removeNthFromEndLinkedList_TwoPointers():")
     test_removeNthFromEndLinkedList_TwoPointers()
+    print()
+    print("test_removeElementValue_twoPointers():")
+    test_removeElementValue_twoPointers()
     print()
     print("test_removeDuplicatesInPlace_TwoPointers():")
     test_removeDuplicatesInPlace_TwoPointers()
