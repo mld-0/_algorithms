@@ -22,10 +22,8 @@ def three_sum_usingTwoSum(nums: list[int], target) -> list[tuple[int]]:
     for i in range(len(nums)):
         delta = target - nums[i]
         loop_nums = nums[:i] + nums[i+1:]
-        loop_results = two_sum_multiple_usingMap(loop_nums, delta)
-        for loop_result in loop_results:
-            loop_combination = list(loop_result) + [ nums[i] ] 
-            result.add(tuple(sorted(loop_combination)))
+        for loop_result in two_sum_multiple_usingMap(loop_nums, delta):
+            result.add( tuple(sorted( [ nums[i], *loop_result ] )) )
     return result
 
 
@@ -94,28 +92,17 @@ def three_sum_twoPointer_optimised(nums: list[int], target) -> list[tuple[int]]:
     return result
 
 
+test_functions = [ three_sum_naive, three_sum_usingTwoSum, three_sum_twoPointer, three_sum_twoPointer_optimised, ]
 
 input_values = [ ([-1,0,1,2,-1,-4], 0), ([], 0), ([0], 0), ([-1,0,1,2,-1,-4,-2,-3,3,0,4], 0) ]
 input_checks = [ set([(-1,-1,2), (-1,0,1)]), set(), set(), set([(-4,0,4), (-4,1,3), (-3,-1,4), (-3,0,3), (-3,1,2), (-2,-1,3), (-2,0,2), (-1,-1,2), (-1,0,1)]) ]
 
-for (nums, target), check in zip(input_values, input_checks):
-    print("nums=(%s), target=(%s)" % (str(nums), str(target)))
-
-    result = three_sum_naive(nums, target)
-    #print("result=(%s)" % str(result))
-    assert( result == check )
-
-    result = three_sum_usingTwoSum(nums, target)
-    #print("result=(%s)" % str(result))
-    assert( result == check )
-
-    result = three_sum_twoPointer(nums, target)
-    #print("result=(%s)" % str(result))
-    assert( result == check )
-
-    result = three_sum_twoPointer_optimised(nums, target)
-    print("result=(%s)" % str(result))
-    assert( result == check )
-
+for f in test_functions:
+    print(f.__name__)
+    for (nums, target), check in zip(input_values, input_checks):
+        print("nums=(%s), target=(%s)" % (str(nums), str(target)))
+        result = f(nums, target)
+        print("result=(%s)" % result)
+        assert result == check, "Check comparison failed"
     print()
 
