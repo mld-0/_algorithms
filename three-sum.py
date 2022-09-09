@@ -2,18 +2,15 @@ import sys
 import logging
 import functools
 import itertools
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 def two_sum_multiple_usingMap(nums: list, target: int) -> tuple:
     result = set()
-    value_to_index = dict()
+    seen = dict()
     for i, n in enumerate(nums):
         delta = target - n
-        if delta in value_to_index.keys():
-            a = nums[value_to_index[delta]]
-            b = nums[i]
-            result.add((a, b))
-        value_to_index[n] = i
+        if delta in seen.keys():
+            result.add( ( delta, nums[i] ) )
+        seen[n] = i
     return result
 
 
@@ -75,12 +72,8 @@ def three_sum_twoPointer_optimised(nums: list[int], target) -> list[tuple[int]]:
             if trial == target:
                 loop_combination = (nums[i], nums[l], nums[r])
                 result.add(tuple(sorted(loop_combination)))
-
-                while l < r and nums[l] == nums[l+1]:
-                    l += 1
-                while l < r and nums[r] == nums[r-1]:
-                    r -= 1
-
+                while l < r and nums[l] == nums[l+1]: l += 1
+                while l < r and nums[r] == nums[r-1]: r -= 1
                 l += 1
                 r -= 1
             elif trial < target:
