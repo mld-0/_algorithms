@@ -21,7 +21,7 @@ def three_sum_usingTwoSum(nums: list[int], target) -> list[tuple[int]]:
     result = set()
     for i in range(len(nums)):
         delta = target - nums[i]
-        for loop_result in two_sum_multiple_usingMap(nums[i+1,:], delta):
+        for loop_result in two_sum_multiple_usingMap(nums[i+1:], delta):
             result.add( tuple(sorted( [ nums[i], *loop_result ] )) )
     return result
 
