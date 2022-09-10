@@ -53,6 +53,10 @@ def kSum_Optimised(nums: List[int], target: int, k: int) -> List[List[int]]:
     raise NotImplementedError()
 
 
+def twoSumIndex(nums: List[int], target: int) -> List[List[int]]:
+    raise NotImplementedError()
+
+
 def kSumIndex(nums: List[int], target: int, k: int) -> List[List[int]]:
     raise NotImplementedError()
 
