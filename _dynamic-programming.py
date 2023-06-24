@@ -6,14 +6,17 @@ from typing import List
 import math
 #   {{{2
 
+#   TODO: 2022-07-19T22:17:50AEST _algorithms, top-down pascals_triangle solution
 #   TODO: 2021-09-30T20:22:47AEST _algorithms, dynamic-programming overview/compilation
 #   (Also) See: (_leetcode)
 #       198-house-robber
 #       120-triangle
 #       <...>
 
-#   Dynamic Programming: storing the solutions to the subproblems of a problem to find the overall solution
-#   Either top-down (recursive memoization) or bottom-up (iterative table filling)
+#   Dynamic Programming: 
+#   Storing the solutions to the subproblems of a problem to find the overall solution.
+#       top-down:   (recursive memoization) 
+#       bottom-up:  (iterative table filling)
 #   <...>
 
 
@@ -41,17 +44,15 @@ def minFallingPathSum_TopDown(matrix: List[List[int]]) -> int:
         """Calculate the min-falling-path starting from a given cell in the first row, with a dict used to memoize results"""
         if (row,col) in memoized:
             return memoized[(row,col)]
-
         path = matrix[row][col]
         trials = [ math.inf ] * 3
-
         if row < len(matrix) - 1:
-            if col-1 >= 0: trials[0] = min_path(row+1, col-1)
             trials[1] = min_path(row+1, col)
-            if col+1 < len(matrix[row]): trials[2] = min_path(row+1, col+1)
-
+            if col-1 >= 0: 
+                trials[0] = min_path(row+1, col-1)
+            if col+1 < len(matrix[row]): 
+                trials[2] = min_path(row+1, col+1)
             path += min(trials)
-
         memoized[(row,col)] = path
         return path
 
@@ -71,11 +72,11 @@ def minFallingPathSum_BottomUp(matrix: List[List[int]]) -> int:
     for row in range(1, len(matrix)):
         for col in range(len(matrix[row])):
             trials = [ math.inf ] * 3
-
-            if col-1 >= 0: trials[0] = grid[row-1][col-1]
             trials[1] = grid[row-1][col]
-            if col+1 < len(matrix[row]): trials[2] = grid[row-1][col+1]
-
+            if col-1 >= 0: 
+                trials[0] = grid[row-1][col-1]
+            if col+1 < len(matrix[row]): 
+                trials[2] = grid[row-1][col+1]
             grid[row][col] += min(trials)
 
     #   solution given by:
