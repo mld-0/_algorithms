@@ -184,6 +184,30 @@ def deleteDuplicatesSortedLinkedList_TwoPointers(head: Optional[ListNode]) -> Op
     return head
 
 
+def removeAllButKDuplicates_Array_InPlace_TwoPointers(nums: List[int]) -> int:
+    """ Remove all but up-to k duplicate elements in a sorted array, in-place, using only O(1) memory
+        (from leetcode/80-remove-duplicates-from-sorted-array-ii)"""
+    k = 2       #   max duplicates to allow
+    l = 1       #   index of last value with duplicates removed
+    r = 1       #   index of current value
+    count = 1   #   number of instances of nums[r] read
+
+    while r < len(nums):
+        if nums[r] == nums[r-1]:
+            count += 1
+        else:
+            count = 1
+
+        if count <= k:
+            nums[l] = nums[r]
+            l += 1
+
+        r += 1
+
+    return l
+
+
+
 def test_twoSum_TwoPointers():
     #   {{{
     input_values = [ ([2,7,11,15], 9), ([2,3,4], 6), ([-1,0], -1), ]
@@ -295,6 +319,28 @@ def test_intervalIntersection_TwoPointers():
         assert result == check, "Check failed"
     #   }}}
 
+def test_removeAllButKDuplicates_Array_InPlace_TwoPointers():
+    #   {{{
+    def validate_result(nums, result_len, check_len, check):
+        if result_len != check_len:
+            return False
+        for i in range(check_len):
+            if nums[i] != check[i]:
+                return False
+        return True
+
+
+    inputs = [ [1,1,1,2,2,3], [0,0,1,1,1,1,2,3,3], [1,1,1,1,1,1,2,2,2,3,3,4], [1], [1,1,1], [1,1,1,2], ]
+    checks = [ (5,[1,1,2,2,3]), (7,[0,0,1,1,2,3,3]), (7,[1,1,2,2,3,3,4]), (1,[1]), (2,[1,1]), (3,[1,1,2]), ]
+    assert len(inputs) == len(checks)
+
+    for nums, (check_len, check) in zip(inputs, checks):
+        print(f"nums=({nums})")
+        result_len = removeAllButKDuplicates_Array_InPlace_TwoPointers(nums)
+        print(f"len=({result_len}), result=({nums})")
+        assert validate_result(nums, result_len, check_len, check), "Check comparison failed"
+    #   }}}
+
 
 if __name__ == '__main__':
     #   {{{
@@ -321,6 +367,9 @@ if __name__ == '__main__':
     print()
     print("test_intervalIntersection_TwoPointers():")
     test_intervalIntersection_TwoPointers()
+    print()
+    print("test_removeAllButKDuplicates_Array_InPlace_TwoPointers")
+    test_removeAllButKDuplicates_Array_InPlace_TwoPointers()
     print()
     #   }}}
 
